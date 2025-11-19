@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Project Front Page Maker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #f8961e;
+            --border-radius: 8px;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.5;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .input-section {
+            flex: 1;
+            min-width: 350px;
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .preview-section {
+            flex: 1;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            margin-bottom: 18px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary);
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.95rem;
+        }
+
+        label i {
+            color: var(--primary);
+            width: 18px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            transition: var(--transition);
+            background-color: #f8f9fa;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: white;
+            box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        }
+
+        .file-input-container {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 10px;
+            background-color: var(--light);
+            border: 1px dashed #bdc3c7;
+            border-radius: var(--border-radius);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .file-input-label:hover {
+            background-color: #e9ecef;
+            border-color: var(--primary);
+        }
+
+        .file-input-label i {
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .image-preview {
+            max-width: 100%;
+            max-height: 120px;
+            margin-top: 8px;
+            display: none;
+            border-radius: 6px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .btn-generate {
+            width: 100%;
+            margin-top: 15px;
+            background: linear-gradient(135deg, var(--accent) 0%, #b5179e 100%);
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, var(--success) 0%, #4895ef 100%);
+        }
+
+        .btn-reset {
+            background: linear-gradient(135deg, var(--warning) 0%, #f3722c 100%);
+        }
+
+        .a4-preview {
+            width: 210mm;
+            height: 297mm;
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 15px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .school-header {
+            position: relative;
+            height: 140px;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        .school-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .school-photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3a0ca3 0%, #4361ee 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .logo-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            min-width: 180px;
+        }
+
+        .school-logo {
+            max-height: 50px;
+            margin-bottom: 5px;
+        }
+
+        .school-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 2px;
+            color: var(--secondary);
+        }
+
+        .school-address {
+            font-size: 12px;
+            color: #555;
+        }
+
+        .project-content {
+            padding: 15px 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .project-topic {
+            text-align: center;
+            margin: 10px 0 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        /* ENHANCED TABLE DESIGN */
+        .student-details {
+            margin: 10px 0;
+            padding: 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9ecef;
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 12px 15px;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .table-header i {
+            font-size: 18px;
+        }
+
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .detail-row {
+            border-bottom: 1px solid #f1f3f4;
+            transition: var(--transition);
+        }
+
+        .detail-row:hover {
+            background-color: #f8f9fa;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            width: 40%;
+            padding: 12px 15px;
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 14px;
+            border-right: 1px solid #f1f3f4;
+            background-color: #f8f9fa;
+        }
+
+        .detail-value {
+            padding: 12px 15px;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .submission-info {
+            margin-top: 15px;
+            text-align: center;
+            padding: 12px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .year {
+            margin-top: 10px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 16px;
+            color: var(--primary);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            color: var(--dark);
+            font-size: 13px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .theme-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .theme-option {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .theme-option.active {
+            border-color: var(--dark);
+            transform: scale(1.1);
+        }
+
+        .theme-blue { background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%); }
+        .theme-green { background: linear-gradient(135deg, #4cc9f0 0%, #4895ef 100%); }
+        .theme-purple { background: linear-gradient(135deg, #7209b7 0%, #560bad 100%); }
+        .theme-red { background: linear-gradient(135deg, #f72585 0%, #b5179e 100%); }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .action-buttons .btn {
+            flex: 1;
+            min-width: 140px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .a4-preview {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 210 / 297;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .detail-label, .detail-value {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            .a4-preview, .a4-preview * {
+                visibility: visible;
+            }
+            
+            .a4-preview {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 210mm;
+                height: 297mm;
+                box-shadow: none;
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            .btn-print, .btn-reset {
+                display: none;
+            }
+            
+            .student-details {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .preview-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .preview-btn {
+            padding: 6px 12px;
+            background: var(--light);
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+        }
+
+        .preview-btn:hover {
+            background: #e9ecef;
+        }
+
+        .preview-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-graduation-cap"></i> School Project Front Page Maker</h1>
+            <p class="subtitle">Create professional project front pages in minutes</p>
+        </header>
+        
+        <div class="main-content">
+            <section class="input-section">
+                <h2 class="section-title"><i class="fas fa-edit"></i> Project Details</h2>
+                
+                <div class="form-group">
+                    <label for="projectTopic"><i class="fas fa-book"></i> Project Topic</label>
+                    <input type="text" id="projectTopic" placeholder="Enter your project topic">
+                </div>
+                
+                <div class="form-group">
+                    <label for="schoolName"><i class="fas fa-school"></i> School Name</label>
+                    <input type="text" id="schoolName" placeholder="Enter school name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="schoolAddress"><i class="fas fa-map-marker-alt"></i> School Address</label>
+                    <input type="text" id="schoolAddress" placeholder="Enter school address">
+                </div>
+                
+                <h3 class="section-title"><i class="fas fa-user-graduate"></i> Student Details</h3>
+                
+                <div class="form-group">
+                    <label for="studentName"><i class="fas fa-user"></i> Student Name</label>
+                    <input type="text" id="studentName" placeholder="Enter student name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="rollNo"><i class="fas fa-id-card"></i> Roll No.</label>
+                    <input type="text" id="rollNo" placeholder="Enter roll number">
+                </div>
+                
+                <div class="form-group">
+                    <label for="registrationNo"><i class="fas fa-id-badge"></i> Registration No.</label>
+                    <input type="text" id="registrationNo" placeholder="Enter registration number">
+                </div>
+                
+                <div class="form-group">
+                    <label for="section"><i class="fas fa-users"></i> Section</label>
+                    <input type="text" id="section" placeholder="Enter section">
+                </div>
+                
+                <div class="form-group">
+                    <label for="class"><i class="fas fa-chalkboard"></i> Class</label>
+                    <input type="text" id="class" placeholder="Enter class">
+                </div>
+                
+                <div class="form-group">
+                    <label for="semester"><i class="fas fa-calendar-alt"></i> Semester</label>
+                    <input type="text" id="semester" placeholder="Enter semester">
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject"><i class="fas fa-book-open"></i> Subject</label>
+                    <input type="text" id="subject" placeholder="Enter subject">
+                </div>
+                
+                <div class="form-group">
+                    <label for="year"><i class="fas fa-calendar"></i> Academic Year</label>
+                    <input type="text" id="year" placeholder="e.g., 2025-26" value="2025-26">
+                </div>
+                
+                <h3 class="section-title"><i class="fas fa-palette"></i> Design Options</h3>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-fill-drip"></i> Color Theme</label>
+                    <div class="theme-selector">
+                        <div class="theme-option theme-blue active" data-theme="blue"></div>
+                        <div class="theme-option theme-green" data-theme="green"></div>
+                        <div class="theme-option theme-purple" data-theme="purple"></div>
+                        <div class="theme-option theme-red" data-theme="red"></div>
+                    </div>
+                </div>
+                
+                <h3 class="section-title"><i class="fas fa-images"></i> School Images</h3>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-image"></i> School Logo</label>
+                    <div class="file-input-container">
+                        <input type="file" id="schoolLogo" class="file-input" accept="image/*">
+                        <label for="schoolLogo" class="file-input-label">
+                            <i class="fas fa-upload"></i>
+                            <span>Choose School Logo</span>
+                        </label>
+                    </div>
+                    <img id="logoPreview" class="image-preview" alt="Logo Preview">
+                </div>
+                
+                <div class="form-group">
+                    <label><i class="fas fa-school"></i> School Photo</label>
+                    <div class="file-input-container">
+                        <input type="file" id="schoolPhoto" class="file-input" accept="image/*">
+                        <label for="schoolPhoto" class="file-input-label">
+                            <i class="fas fa-upload"></i>
+                            <span>Choose School Photo</span>
+                        </label>
+                    </div>
+                    <img id="photoPreview" class="image-preview" alt="Photo Preview">
+                </div>
+                
+                <button class="btn btn-generate" id="generateBtn">
+                    <i class="fas fa-magic"></i> Generate Front Page
+                </button>
+                
+                <div class="loading" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <p>Generating your front page...</p>
+                </div>
+            </section>
+            
+            <section class="preview-section">
+                <h2 class="section-title"><i class="fas fa-eye"></i> Preview</h2>
+                
+                <div class="preview-controls">
+                    <button class="preview-btn active" id="previewDesign1">
+                        <i class="fas fa-palette"></i> Design 1
+                    </button>
+                    <button class="preview-btn" id="previewDesign2">
+                        <i class="fas fa-paint-brush"></i> Design 2
+                    </button>
+                </div>
+                
+                <div class="a4-preview" id="a4Preview">
+                    <div class="school-header">
+                        <div id="previewSchoolPhoto" class="school-photo-placeholder">
+                            <i class="fas fa-school"></i>
+                            <span>School Photo</span>
+                        </div>
+                        <div class="logo-container">
+                            <img id="previewLogo" class="school-logo" src="" alt="School Logo">
+                            <div class="school-name" id="previewSchoolName">School Name</div>
+                            <div class="school-address" id="previewSchoolAddress">School Address</div>
+                        </div>
+                    </div>
+                    
+                    <div class="project-content">
+                        <div class="project-topic">
+                            <div class="project-title" id="previewProjectTopic">Project Topic</div>
+                        </div>
+                        
+                        <div class="student-details">
+                            <div class="table-header">
+                                <i class="fas fa-user-graduate"></i> Student Information
+                            </div>
+                            <table class="detail-table">
+                                <tr class="detail-row">
+                                    <td class="detail-label">Submitted By:</td>
+                                    <td class="detail-value" id="previewStudentName">Student Name</td>
+                                </tr>
+                                <tr class="detail-row">
+                                    <td class="detail-label">Roll No.:</td>
+                                    <td class="detail-value" id="previewRollNo">Roll Number</td>
+                                </tr>
+                                <tr class="detail-row">
+                                    <td class="detail-label">Registration No.:</td>
+                                    <td class="detail-value" id="previewRegistrationNo">Registration Number</td>
+                                </tr>
+                                <tr class="detail-row">
+                                    <td class="detail-label">Section:</td>
+                                    <td class="detail-value" id="previewSection">Section</td>
+                                </tr>
+                                <tr class="detail-row">
+                                    <td class="detail-label">Class:</td>
+                                    <td class="detail-value" id="previewClass">Class</td>
+                                </tr>
+                                <tr class="detail-row">
+                                    <td class="detail-label">Semester:</td>
+                                    <td class="detail-value" id="previewSemester">Semester</td>
+                                </tr>
+                                <tr class="detail-row">
+                                    <td class="detail-label">Subject:</td>
+                                    <td class="detail-value" id="previewSubject">Subject</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="submission-info">
+                            <div>A project/work submitted to</div>
+                            <div id="previewSubmissionSchool">School Name</div>
+                        </div>
+                        
+                        <div class="year" id="previewYear">2025-26</div>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-print" id="printBtn">
+                        <i class="fas fa-print"></i> Print / Save as PDF
+                    </button>
+                    <button class="btn btn-reset" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset Form
+                    </button>
+                </div>
+            </section>
+        </div>
+        
+        <footer class="footer">
+            <p>School Project Front Page Maker &copy; 2025 | Create professional project covers effortlessly</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const generateBtn = document.getElementById('generateBtn');
+            const printBtn = document.getElementById('printBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const previewDesign1 = document.getElementById('previewDesign1');
+            const previewDesign2 = document.getElementById('previewDesign2');
+            
+            // Input elements
+            const projectTopicInput = document.getElementById('projectTopic');
+            const schoolNameInput = document.getElementById('schoolName');
+            const schoolAddressInput = document.getElementById('schoolAddress');
+            const studentNameInput = document.getElementById('studentName');
+            const rollNoInput = document.getElementById('rollNo');
+            const registrationNoInput = document.getElementById('registrationNo');
+            const sectionInput = document.getElementById('section');
+            const classInput = document.getElementById('class');
+            const semesterInput = document.getElementById('semester');
+            const subjectInput = document.getElementById('subject');
+            const yearInput = document.getElementById('year');
+            const schoolLogoInput = document.getElementById('schoolLogo');
+            const schoolPhotoInput = document.getElementById('schoolPhoto');
+            const themeOptions = document.querySelectorAll('.theme-option');
+            
+            // Preview elements
+            const previewProjectTopic = document.getElementById('previewProjectTopic');
+            const previewSchoolName = document.getElementById('previewSchoolName');
+            const previewSchoolAddress = document.getElementById('previewSchoolAddress');
+            const previewStudentName = document.getElementById('previewStudentName');
+            const previewRollNo = document.getElementById('previewRollNo');
+            const previewRegistrationNo = document.getElementById('previewRegistrationNo');
+            const previewSection = document.getElementById('previewSection');
+            const previewClass = document.getElementById('previewClass');
+            const previewSemester = document.getElementById('previewSemester');
+            const previewSubject = document.getElementById('previewSubject');
+            const previewYear = document.getElementById('previewYear');
+            const previewSubmissionSchool = document.getElementById('previewSubmissionSchool');
+            const previewLogo = document.getElementById('previewLogo');
+            const logoPreview = document.getElementById('logoPreview');
+            const photoPreview = document.getElementById('photoPreview');
+            const a4Preview = document.getElementById('a4Preview');
+            const previewSchoolPhoto = document.getElementById('previewSchoolPhoto');
+            
+            // Generate preview function
+            function generatePreview() {
+                loadingIndicator.style.display = 'block';
+                
+                // Simulate processing time
+                setTimeout(() => {
+                    previewProjectTopic.textContent = projectTopicInput.value || 'Project Topic';
+                    previewSchoolName.textContent = schoolNameInput.value || 'School Name';
+                    previewSchoolAddress.textContent = schoolAddressInput.value || 'School Address';
+                    previewStudentName.textContent = studentNameInput.value || 'Student Name';
+                    previewRollNo.textContent = rollNoInput.value || 'Roll Number';
+                    previewRegistrationNo.textContent = registrationNoInput.value || 'Registration Number';
+                    previewSection.textContent = sectionInput.value || 'Section';
+                    previewClass.textContent = classInput.value || 'Class';
+                    previewSemester.textContent = semesterInput.value || 'Semester';
+                    previewSubject.textContent = subjectInput.value || 'Subject';
+                    previewYear.textContent = yearInput.value || '2025-26';
+                    previewSubmissionSchool.textContent = schoolNameInput.value || 'School Name';
+                    
+                    loadingIndicator.style.display = 'none';
+                }, 600);
+            }
+            
+            // Handle image previews
+            schoolLogoInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewLogo.src = e.target.result;
+                        logoPreview.src = e.target.result;
+                        logoPreview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            schoolPhotoInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        // Create image element for school photo
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.className = 'school-photo';
+                        img.alt = 'School Photo';
+                        
+                        // Replace placeholder with actual image
+                        previewSchoolPhoto.innerHTML = '';
+                        previewSchoolPhoto.appendChild(img);
+                        
+                        // Update thumbnail preview
+                        photoPreview.src = e.target.result;
+                        photoPreview.style.display = 'block';
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Theme selection
+            themeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    themeOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const theme = this.getAttribute('data-theme');
+                    applyTheme(theme);
+                });
+            });
+            
+            function applyTheme(theme) {
+                const root = document.documentElement;
+                
+                switch(theme) {
+                    case 'blue':
+                        root.style.setProperty('--primary', '#4361ee');
+                        root.style.setProperty('--secondary', '#3a0ca3');
+                        root.style.setProperty('--accent', '#f72585');
+                        root.style.setProperty('--success', '#4cc9f0');
+                        break;
+                    case 'green':
+                        root.style.setProperty('--primary', '#4cc9f0');
+                        root.style.setProperty('--secondary', '#4895ef');
+                        root.style.setProperty('--accent', '#4361ee');
+                        root.style.setProperty('--success', '#3a0ca3');
+                        break;
+                    case 'purple':
+                        root.style.setProperty('--primary', '#7209b7');
+                        root.style.setProperty('--secondary', '#560bad');
+                        root.style.setProperty('--accent', '#480ca8');
+                        root.style.setProperty('--success', '#3a0ca3');
+                        break;
+                    case 'red':
+                        root.style.setProperty('--primary', '#f72585');
+                        root.style.setProperty('--secondary', '#b5179e');
+                        root.style.setProperty('--accent', '#7209b7');
+                        root.style.setProperty('--success', '#560bad');
+                        break;
+                }
+            }
+            
+            // Design template selection
+            previewDesign1.addEventListener('click', function() {
+                previewDesign1.classList.add('active');
+                previewDesign2.classList.remove('active');
+                a4Preview.className = 'a4-preview';
+            });
+            
+            previewDesign2.addEventListener('click', function() {
+                previewDesign2.classList.add('active');
+                previewDesign1.classList.remove('active');
+                a4Preview.className = 'a4-preview design-2';
+                
+                // Apply different styling for design 2 table
+                const style = document.createElement('style');
+                style.id = 'design2-style';
+                style.innerHTML = `
+                    .design-2 .student-details {
+                        border: 1px solid #e0e0e0;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    }
+                    
+                    .design-2 .table-header {
+                        background: linear-gradient(135deg, #f72585 0%, #b5179e 100%);
+                    }
+                    
+                    .design-2 .detail-label {
+                        background-color: #f8f9fa;
+                        color: #3a0ca3;
+                    }
+                    
+                    .design-2 .detail-row:hover {
+                        background-color: #f0f4ff;
+                    }
+                `;
+                
+                // Remove existing design2 style if it exists
+                const existingStyle = document.getElementById('design2-style');
+                if (existingStyle) {
+                    existingStyle.remove();
+                }
+                
+                document.head.appendChild(style);
+            });
+            
+            // Generate button event
+            generateBtn.addEventListener('click', generatePreview);
+            
+            // Print button event
+            printBtn.addEventListener('click', function() {
+                window.print();
+            });
+            
+            // Reset button event
+            resetBtn.addEventListener('click', function() {
+                // Clear all inputs
+                const inputs = document.querySelectorAll('input[type="text"], input[type="file"]');
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+                
+                // Reset year to default
+                yearInput.value = '2025-26';
+                
+                // Reset theme to blue
+                themeOptions.forEach(opt => opt.classList.remove('active'));
+                document.querySelector('.theme-blue').classList.add('active');
+                applyTheme('blue');
+                
+                // Reset design to design 1
+                previewDesign1.classList.add('active');
+                previewDesign2.classList.remove('active');
+                a4Preview.className = 'a4-preview';
+                
+                // Hide image previews
+                logoPreview.style.display = 'none';
+                photoPreview.style.display = 'none';
+                previewLogo.src = '';
+                
+                // Reset school photo placeholder
+                previewSchoolPhoto.innerHTML = '<i class="fas fa-school"></i><span>School Photo</span>';
+                previewSchoolPhoto.className = 'school-photo-placeholder';
+                
+                // Reset preview content
+                generatePreview();
+            });
+            
+            // Auto-generate preview on input change
+            const inputs = document.querySelectorAll('input[type="text"]');
+            inputs.forEach(input => {
+                input.addEventListener('input', generatePreview);
+            });
+            
+            // Initialize with default values
+            generatePreview();
+        });
+    </script>
+</body>
+</html>
