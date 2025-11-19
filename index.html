@@ -14,9 +14,9 @@
             --dark: #212529;
             --success: #4cc9f0;
             --warning: #f8961e;
-            --border-radius: 12px;
-            --box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --border-radius: 16px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * {
@@ -27,7 +27,7 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
             color: var(--dark);
             line-height: 1.6;
             min-height: 100vh;
@@ -43,9 +43,9 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 80%, rgba(67, 97, 238, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(247, 37, 133, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(76, 201, 240, 0.05) 0%, transparent 50%);
+                radial-gradient(circle at 10% 20%, rgba(67, 97, 238, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(247, 37, 133, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(76, 201, 240, 0.03) 0%, transparent 50%);
             z-index: -1;
         }
 
@@ -56,39 +56,48 @@
 
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 25px;
+            margin-bottom: 40px;
+            padding: 30px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             position: relative;
             overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: none;
         }
 
         header::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-            transform: rotate(30deg);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        header:hover::before {
+            transform: translateX(100%);
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
             position: relative;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            font-weight: 700;
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             opacity: 0.9;
             font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .main-content {
@@ -102,13 +111,13 @@
             flex: 1;
             min-width: 350px;
             background-color: white;
-            padding: 25px;
+            padding: 30px;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             transition: var(--transition);
-            border: 2px solid rgba(67, 97, 238, 0.1);
             position: relative;
             overflow: hidden;
+            border: none;
         }
 
         .input-section::before {
@@ -116,15 +125,14 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
         }
 
         .input-section:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            border-color: rgba(67, 97, 238, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
         }
 
         .preview-section {
@@ -136,56 +144,62 @@
         }
 
         .section-title {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
             color: var(--secondary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             position: relative;
+            font-weight: 600;
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -3px;
+            bottom: 0;
             left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--accent);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
         }
 
         .section-title i {
-            color: var(--accent);
+            color: var(--primary);
+            background: rgba(67, 97, 238, 0.1);
+            padding: 10px;
+            border-radius: 12px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             position: relative;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
             color: var(--dark);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            font-size: 1rem;
         }
 
         label i {
             color: var(--primary);
             width: 20px;
+            text-align: center;
         }
 
         input, select {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             border: 2px solid #e9ecef;
-            border-radius: var(--border-radius);
+            border-radius: 12px;
             font-size: 16px;
             transition: var(--transition);
             background-color: #f8f9fa;
@@ -195,7 +209,7 @@
             outline: none;
             border-color: var(--primary);
             background-color: white;
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.15);
         }
 
         .file-input-container {
@@ -217,46 +231,47 @@
 
         .file-input-label {
             display: block;
-            padding: 14px;
+            padding: 16px;
             background-color: var(--light);
             border: 2px dashed #bdc3c7;
-            border-radius: var(--border-radius);
+            border-radius: 12px;
             text-align: center;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .file-input-label:hover {
             background-color: #e9ecef;
             border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .file-input-label i {
-            font-size: 24px;
+            font-size: 28px;
             color: var(--primary);
         }
 
         .image-preview {
             max-width: 100%;
-            max-height: 150px;
-            margin-top: 10px;
+            max-height: 160px;
+            margin-top: 12px;
             display: none;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             border: 2px solid #e9ecef;
         }
 
         .btn {
             display: inline-block;
-            padding: 14px 28px;
+            padding: 16px 32px;
             background-color: var(--primary);
             color: white;
             border: none;
-            border-radius: var(--border-radius);
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
@@ -265,8 +280,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            gap: 12px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
         }
@@ -287,8 +302,8 @@
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 7px 14px rgba(0,0,0,0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
         }
 
         .btn:active {
@@ -317,19 +332,18 @@
             margin-bottom: 20px;
             position: relative;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 12px;
             transition: var(--transition);
-            border: 2px solid rgba(67, 97, 238, 0.1);
+            border: none;
         }
 
         .a4-preview:hover {
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            border-color: rgba(67, 97, 238, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
         .school-header {
             position: relative;
-            height: 140px;
+            height: 160px;
             overflow: hidden;
             margin: 0;
             padding: 0;
@@ -351,45 +365,46 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1rem;
+            font-size: 1.1rem;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
         .logo-container {
             position: absolute;
-            bottom: 10px;
+            bottom: 15px;
             left: 50%;
             transform: translateX(-50%);
             text-align: center;
             background: rgba(255, 255, 255, 0.95);
-            padding: 12px 20px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            min-width: 200px;
+            padding: 15px 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            min-width: 220px;
             border: 2px solid rgba(67, 97, 238, 0.2);
+            backdrop-filter: blur(10px);
         }
 
         .school-logo {
-            max-height: 60px;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            max-height: 70px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
         }
 
         .school-name {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: bold;
-            margin-bottom: 3px;
+            margin-bottom: 5px;
             color: var(--secondary);
         }
 
         .school-address {
-            font-size: 13px;
+            font-size: 14px;
             color: #555;
         }
 
         .project-content {
-            padding: 20px 30px;
+            padding: 25px 35px;
             flex: 1;
             display: flex;
             flex-direction: column;
@@ -398,11 +413,11 @@
 
         .project-topic {
             text-align: center;
-            margin: 15px 0 20px;
-            padding: 20px;
+            margin: 20px 0 25px;
+            padding: 25px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.05);
             position: relative;
         }
@@ -412,34 +427,34 @@
             position: absolute;
             height: 2px;
             background: linear-gradient(90deg, transparent, var(--primary), transparent);
-            left: 20px;
-            right: 20px;
+            left: 30px;
+            right: 30px;
         }
 
         .project-topic::before {
-            top: 10px;
+            top: 15px;
         }
 
         .project-topic::after {
-            bottom: 10px;
+            bottom: 15px;
         }
 
         .project-title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: var(--dark);
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         /* ENHANCED TABLE DESIGN */
         .student-details {
-            margin: 15px 0;
+            margin: 20px 0;
             padding: 0;
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
             border: 2px solid rgba(67, 97, 238, 0.1);
             position: relative;
         }
@@ -450,24 +465,24 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 6px;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
 
         .table-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
-            padding: 14px 20px;
+            padding: 18px 25px;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             border-bottom: 2px solid rgba(255, 255, 255, 0.2);
         }
 
         .table-header i {
-            font-size: 20px;
+            font-size: 22px;
         }
 
         .detail-table {
@@ -482,6 +497,7 @@
 
         .detail-row:hover {
             background-color: #f8f9fa;
+            transform: translateX(5px);
         }
 
         .detail-row:last-child {
@@ -490,28 +506,28 @@
 
         .detail-label {
             width: 40%;
-            padding: 14px 20px;
+            padding: 16px 25px;
             font-weight: 600;
             color: var(--secondary);
-            font-size: 15px;
+            font-size: 16px;
             border-right: 1px solid #f1f3f4;
             background-color: #f8f9fa;
         }
 
         .detail-value {
-            padding: 14px 20px;
+            padding: 16px 25px;
             color: var(--dark);
-            font-size: 15px;
+            font-size: 16px;
         }
 
         .submission-info {
-            margin-top: 20px;
+            margin-top: 25px;
             text-align: center;
-            padding: 16px;
+            padding: 20px;
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 12px;
-            font-size: 15px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             border: 1px solid rgba(0,0,0,0.05);
             position: relative;
         }
@@ -522,54 +538,55 @@
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
+            width: 100px;
+            height: 3px;
             background: var(--primary);
+            border-radius: 2px;
         }
 
         .year {
-            margin-top: 15px;
+            margin-top: 20px;
             text-align: center;
             font-weight: bold;
-            font-size: 17px;
+            font-size: 18px;
             color: var(--primary);
-            padding: 10px;
+            padding: 12px;
             border-top: 2px dashed var(--primary);
             border-bottom: 2px dashed var(--primary);
         }
 
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding: 20px;
+            margin-top: 40px;
+            padding: 25px;
             color: var(--dark);
-            font-size: 14px;
+            font-size: 15px;
             background-color: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            border: 2px solid rgba(67, 97, 238, 0.1);
+            border: none;
         }
 
         .theme-selector {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
         .theme-option {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
             border: 3px solid transparent;
             transition: var(--transition);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         .theme-option.active {
             border-color: var(--dark);
-            transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: scale(1.15);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
         .theme-blue { background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%); }
@@ -581,12 +598,12 @@
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
-            margin-top: 15px;
+            margin-top: 20px;
         }
 
         .action-buttons .btn {
             flex: 1;
-            min-width: 160px;
+            min-width: 170px;
         }
 
         @media (max-width: 768px) {
@@ -601,7 +618,7 @@
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .action-buttons {
@@ -609,8 +626,8 @@
             }
             
             .detail-label, .detail-value {
-                padding: 12px 15px;
-                font-size: 14px;
+                padding: 14px 20px;
+                font-size: 15px;
             }
         }
 
@@ -648,17 +665,17 @@
         .loading {
             display: none;
             text-align: center;
-            padding: 20px;
+            padding: 25px;
         }
 
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 15px;
+            margin: 0 auto 20px;
         }
 
         @keyframes spin {
@@ -668,52 +685,109 @@
 
         .preview-controls {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 12px;
+            margin-bottom: 20px;
             width: 100%;
             justify-content: center;
         }
 
         .preview-btn {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: var(--light);
             border: 2px solid #ddd;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.95rem;
+            gap: 8px;
+            font-size: 1rem;
             font-weight: 500;
         }
 
         .preview-btn:hover {
             background: #e9ecef;
             border-color: var(--primary);
+            transform: translateY(-2px);
         }
 
         .preview-btn.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.3);
         }
 
         .design-badge {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 20px;
+            right: 20px;
             background: var(--accent);
             color: white;
-            padding: 5px 10px;
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            background: var(--primary);
+            top: 10%;
+            left: 5%;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            background: var(--accent);
+            top: 70%;
+            right: 10%;
+            animation: float 12s infinite ease-in-out reverse;
+        }
+
+        .shape-3 {
+            width: 100px;
+            height: 100px;
+            background: var(--success);
+            bottom: 20%;
+            left: 15%;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
         }
     </style>
 </head>
 <body>
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    
     <div class="container">
         <header>
             <h1><i class="fas fa-graduation-cap"></i> School Project Front Page Maker</h1>
@@ -1103,7 +1177,7 @@
                     
                     .design-2 .logo-container {
                         border: 2px solid rgba(247, 37, 133, 0.3);
-                        box-shadow: 0 5px 15px rgba(247, 37, 133, 0.2);
+                        box-shadow: 0 8px 25px rgba(247, 37, 133, 0.2);
                     }
                     
                     .design-2 .project-topic {
@@ -1117,7 +1191,7 @@
                     
                     .design-2 .student-details {
                         border: 2px solid rgba(247, 37, 133, 0.1);
-                        box-shadow: 0 4px 12px rgba(247, 37, 133, 0.1);
+                        box-shadow: 0 6px 18px rgba(247, 37, 133, 0.1);
                     }
                     
                     .design-2 .student-details::before {
